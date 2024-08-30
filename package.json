@@ -1,0 +1,71 @@
+{
+  "name": "playwright-cucumber-bdd",
+  "version": "1.0.0",
+  "description": "Playwright and Cucumber BDD setup for automated testing",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx cucumber-js",
+    "test:playwright": "npx playwright test",
+    "test:all": "npm run test && npm run test:playwright"
+  },
+  "dependencies": {
+    "@playwright/test": "^1.18.0",
+    "@cucumber/cucumber": "^8.0.0",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^16.0.0"
+  },
+  "cucumber": {
+    "require": [
+      "src/features/step_definitions/**/*.ts"
+    ],
+    "requireModule": [
+      "ts-node/register"
+    ],
+    "paths": [
+      "src/features/**/*.feature"
+    ]
+  },
+  "playwright": {
+    "testDir": "src/tests",
+    "timeout": 30000,
+    "expect": {
+      "timeout": 5000
+    },
+    "use": {
+      "trace": "on-first-retry",
+      "headless": true,
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "baseURL": "https://www.saucedemo.com/",
+      "actionTimeout": 0
+    },
+    "projects": [
+      {
+        "name": "Chromium",
+        "use": {
+          "channel": "chrome"
+        }
+      },
+      {
+        "name": "Firefox",
+        "use": {
+          "channel": "firefox"
+        }
+      },
+      {
+        "name": "WebKit",
+        "use": {
+          "channel": "webkit"
+        }
+      }
+    ]
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
